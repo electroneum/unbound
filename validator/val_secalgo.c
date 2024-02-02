@@ -662,7 +662,7 @@ verify_canonrrset(sldns_buffer* buf, int algo, unsigned char* sigblock,
 #ifdef HAVE_EVP_MD_CTX_NEW
 	ctx = EVP_MD_CTX_new();
 #else
-	ctx = (EVP_MD_CTX*)malloc(sizeof(*ctx));
+	ctx = EVP_MD_CTX_new();
 	if(ctx) EVP_MD_CTX_init(ctx);
 #endif
 	if(!ctx) {
@@ -678,7 +678,7 @@ verify_canonrrset(sldns_buffer* buf, int algo, unsigned char* sigblock,
 #ifdef HAVE_EVP_MD_CTX_NEW
 		EVP_MD_CTX_destroy(ctx);
 #else
-		EVP_MD_CTX_cleanup(ctx);
+		EVP_MD_CTX_free(ctx);
 		free(ctx);
 #endif
 		EVP_PKEY_free(evp_key);
@@ -692,7 +692,7 @@ verify_canonrrset(sldns_buffer* buf, int algo, unsigned char* sigblock,
 #ifdef HAVE_EVP_MD_CTX_NEW
 		EVP_MD_CTX_destroy(ctx);
 #else
-		EVP_MD_CTX_cleanup(ctx);
+		EVP_MD_CTX_free(ctx);
 		free(ctx);
 #endif
 		EVP_PKEY_free(evp_key);
@@ -708,7 +708,7 @@ verify_canonrrset(sldns_buffer* buf, int algo, unsigned char* sigblock,
 #ifdef HAVE_EVP_MD_CTX_NEW
 		EVP_MD_CTX_destroy(ctx);
 #else
-		EVP_MD_CTX_cleanup(ctx);
+		EVP_MD_CTX_free(ctx);
 		free(ctx);
 #endif
 		EVP_PKEY_free(evp_key);
@@ -723,7 +723,7 @@ verify_canonrrset(sldns_buffer* buf, int algo, unsigned char* sigblock,
 #ifdef HAVE_EVP_MD_CTX_NEW
 	EVP_MD_CTX_destroy(ctx);
 #else
-	EVP_MD_CTX_cleanup(ctx);
+	EVP_MD_CTX_free(ctx);
 	free(ctx);
 #endif
 	EVP_PKEY_free(evp_key);
